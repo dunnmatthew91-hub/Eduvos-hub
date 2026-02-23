@@ -1,0 +1,90 @@
+.hub-bg {
+  background: radial-gradient(circle at top left, #e6eff6, #b6c9e4);
+  min-height: 100vh;
+}
+
+.hub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  background: transparent; /* or semi-transparent white */
+}
+
+.hub-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #18397c;
+}
+
+.hub-nav {
+  display: flex;
+  gap: 18px;
+}
+
+.nav-item.selected {
+  border-bottom: 2px solid #3186e2;
+  color: #3186e2;
+}
+
+.hub-icons {
+  display: flex;
+  gap: 16px;
+}
+
+/* Main */
+.hub-main {
+  margin: 48px;
+  padding: 32px;
+  background: rgba(255,255,255, 0.8);
+  border-radius: 16px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.timetable-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.timetable-days {
+  display: flex;
+  grid-column: span 5;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.timetable-events {
+  display: contents;
+}
+
+.event-card {
+  background: #3a4971;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px #0001;
+  padding: 18px;
+  margin: 10px 0;
+  font-weight: 500;
+  min-height: 110px;
+}
+
+.hub-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.add-event {
+  background: #3186e2;
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-weight: bold;
+}
