@@ -1,0 +1,209 @@
+import React from "react";
+
+const eduvosLogoUrl = "https://www.eduvos.com/logo.png"; // Replace with actual logo URL
+
+const externalLinks = {
+  teams: "https://teams.microsoft.com/",
+  outlook: "https://outlook.office.com/",
+};
+
+export default function VossieHub() {
+  return (
+    <div style={{ fontFamily: "Segoe UI, sans-serif", background: "#edf2fa", minHeight: "100vh" }}>
+      {/* Header */}
+      <header style={{ display: "flex", alignItems: "center", padding: "24px 32px", background: "#fff", boxShadow: "0 2px 8px #cfdaf5" }}>
+        <img src={eduvosLogoUrl} alt="Eduvos Logo" style={{ height: 48, marginRight: 20 }} />
+        <h1 style={{ fontWeight: 700, fontSize: "2rem", color: "#2c4381", letterSpacing: "0.05em" }}>Vossie HUB</h1>
+      </header>
+
+      {/* Navigation */}
+      <nav style={{ display: "flex", justifyContent: "center", gap: 40, margin: "20px 0" }}>
+        <Tab name="Dashboard" icon="🏠" />
+        <Tab name="My Courses" icon="📚" />
+        <Tab name="Timetable" icon="📅" />
+        <Tab name="Due Dates" icon="🗓️" />
+        <Tab name="Email" icon="✉️" url={externalLinks.outlook} external />
+        <Tab name="Teams" icon="💬" url={externalLinks.teams} external />
+        <Tab name="Calendar" icon="📆" />
+        <Tab name="Settings" icon="⚙️" />
+      </nav>
+
+      {/* Main Section */}
+      <main style={{ maxWidth: 1000, margin: "auto", background: "#fff", padding: 40, borderRadius: 16, boxShadow: "0 4px 16px #dbeaff" }}>
+        {/* Assignments Overview */}
+        <section>
+          <h2 style={{ marginBottom: 12, color: "#406acb" }}>Assignments</h2>
+          <TabsGroup tabs={["Upcoming (2)", "Past (4)", "Overdue (1)", "All (7)"]} active="Upcoming (2)" />
+          <div style={{ display: "flex", gap: 30, marginTop: 24 }}>
+            {/* Progress Chart */}
+            <div style={{ flex: "0 0 180px", background: "#eaf2fa", borderRadius: 12, textAlign: "center", padding: 18 }}>
+              <div style={{ fontWeight: 500, fontSize: 30, color: "#2c4381" }}>2 / 7</div>
+              <div style={{ marginBottom: 7, color: "#586a95" }}>Completed</div>
+              <ProgressCircle value={28} />
+              <div style={{ fontSize: 14, marginTop: 6 }}>
+                <span style={{ color: "#3db381" }}>2 Completed</span><br />
+                <span style={{ color: "#ed734a" }}>1 Overdue</span><br />
+                <span style={{ color: "#406acb" }}>4 Upcoming</span>
+              </div>
+            </div>
+            {/* Assignment List */}
+            <div style={{ flex: 1 }}>
+              <Assignment
+                title="COBMA-11 Assignment 1A"
+                date="27 Apr 2024"
+                time="23:55"
+                course="Introduction to Business Management"
+                status="Pending"
+                progress={0}
+              />
+              <Assignment
+                title="COBMA-11 Assignment 1B"
+                date="2 May 2024"
+                time="23:55"
+                course="Introduction to Business Management"
+                status="Pending"
+                progress={0}
+              />
+            </div>
+          </div>
+        </section>
+        {/* Overdue & Past Assignments */}
+        <section style={{ marginTop: 36 }}>
+          <div style={{ display: "flex", gap: 40 }}>
+            {/* Overdue */}
+            <div style={{ flex: 1 }}>
+              <h3 style={{ color: "#ed734a", marginBottom: 6, fontWeight: 600 }}>Overdue Assignment</h3>
+              <Assignment
+                title="COBMA-11 Assignment 1"
+                date="20 Apr 2024"
+                time="23:55"
+                course="Business Leadership"
+                status="Overdue"
+                overdue="3 days overdue"
+                progress={25}
+              />
+            </div>
+            {/* Past */}
+            <div style={{ flex: 1 }}>
+              <h3 style={{ color: "#406acb", marginBottom: 6, fontWeight: 600 }}>Past Assignments</h3>
+              <PastAssignment title="COBMA-11 Quiz" date="12 Apr 2024" time="23:54" grade={90} />
+              <PastAssignment title="LWITA1-B Assignment" date="10 Apr 2024" time="23:54" grade={76} />
+              <a href="#" style={{ display: "block", marginTop: 8, color: "#406acb", textDecoration: "underline" }}>View All Past Assignments</a>
+            </div>
+          </div>
+        </section>
+        {/* Export & Manage */}
+        <div style={{ marginTop: 18, display: "flex", gap: 16 }}>
+          <button style={blueButton}>Export</button>
+          <button style={blueButton}>Manage Timetables</button>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+// Supporting Components
+
+const blueButton = {
+  background: "#406acb",
+  color: "#fff",
+  border: "none",
+  borderRadius: 8,
+  padding: "10px 28px",
+  fontWeight: 600,
+  cursor: "pointer"
+};
+
+function Tab({ name, icon, url, external }) {
+  if (external) {
+    return (
+      <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#2c4381", fontWeight: 500 }}>
+        <span style={{ fontSize: 18 }}>{icon}</span> {name}
+      </a>
+    );
+  }
+  return (
+    <span style={{ color: "#406acb", fontWeight: 500, fontSize: 18, cursor: "pointer" }}>
+      <span style={{ fontSize: 20 }}>{icon}</span> {name}
+    </span>
+  );
+}
+
+function TabsGroup({ tabs, active }) {
+  return (
+    <div style={{ display: "flex", gap: 18 }}>
+      {tabs.map(tab => (
+        <span
+          key={tab}
+          style={{
+            color: tab === active ? "#406acb" : "#6a7c9a",
+            fontWeight: tab === active ? 700 : 500,
+            paddingBottom: 4,
+            borderBottom: tab === active ? "3px solid #406acb" : "none",
+            cursor: "pointer"
+          }}
+        >
+          {tab}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function Assignment({ title, date, time, course, status, progress, overdue }) {
+  return (
+    <div style={{ background: "#f5f7fb", borderRadius: 10, padding: 16, marginBottom: 12, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div>
+        <div style={{ fontWeight: 600, color: "#2c4381", fontSize: 17 }}>{title}</div>
+        <div style={{ color: "#406acb", fontSize: 13 }}>{date} · {time}</div>
+        <div style={{ fontSize: 13, color: "#586a95" }}>{course}</div>
+        {overdue && <span style={{ color: "#ed734a", fontWeight: 500 }}>{overdue}&nbsp;<span style={{ background: "#ed734a", color: "#fff", borderRadius: 4, padding: "2px 7px" }}>Overdue</span></span>}
+      </div>
+      <div>
+        {status === "Pending" && (
+          <span style={{ background: "#ffe9aa", color: "#b97615", padding: "4px 16px", borderRadius: 7, fontWeight: 600, marginRight: 10 }}>Pending</span>
+        )}
+        {status === "Overdue" && (
+          <span style={{ background: "#ed734a", color: "#fff", padding: "4px 16px", borderRadius: 7, fontWeight: 600, marginRight: 10 }}>Overdue</span>
+        )}
+        <button style={blueButton}>View Details</button>
+        <div style={{ fontSize: 12, color: "#586a95", textAlign: "right", marginTop: 3 }}>{progress}% Progress</div>
+      </div>
+    </div>
+  );
+}
+
+function PastAssignment({ title, date, time, grade }) {
+  return (
+    <div style={{ background: "#eaf2fa", borderRadius: 10, padding: 12, marginBottom: 8, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div>
+        <div style={{ fontWeight: 600, color: "#2c4381", fontSize: 15 }}>{title}</div>
+        <div style={{ color: "#406acb", fontSize: 12 }}>{date} · {time}</div>
+      </div>
+      <span style={{ background: "#3db381", color: "#fff", borderRadius: 7, fontWeight: 700, padding: "4px 12px" }}>
+        Graded {grade} ✔️
+      </span>
+    </div>
+  );
+}
+
+// Simple Circular Progress (not animated)
+function ProgressCircle({ value }) {
+  return (
+    <svg width="70" height="70">
+      <circle cx="35" cy="35" r="28" fill="none" stroke="#e0eafd" strokeWidth="6" />
+      <circle
+        cx="35"
+        cy="35"
+        r="28"
+        fill="none"
+        stroke="#406acb"
+        strokeWidth="6"
+        strokeDasharray={2 * Math.PI * 28}
+        strokeDashoffset={2 * Math.PI * 28 * (1 - value / 100)}
+        style={{ transition: "stroke-dashoffset 0.4s" }}
+      />
+      <text x="35" y="39" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#2c4381">{value}%</text>
+    </svg>
+  );
+}
