@@ -1,0 +1,107 @@
+import React, { useState } from "react";
+
+const quickLinks = [
+  { name: "MS Teams", url: "https://teams.microsoft.com/" },
+  { name: "Outlook", url: "https://outlook.office.com/" },
+  // Add more links as needed
+];
+
+const courses = [
+  "Business Management 101",
+  "Accounting Fundamentals",
+  "Marketing Principles",
+  // Add more courses as needed
+];
+
+const timetable = [
+  { day: "Monday", class: "Marketing Principles", time: "09:00 - 11:00" },
+  { day: "Tuesday", class: "Business Management 101", time: "12:00 - 14:00" },
+  { day: "Wednesday", class: "Accounting Fundamentals", time: "10:00 - 12:00" },
+  // Add more timetable entries
+];
+
+const assignments = [
+  { course: "Business Management 101", due: "2026-03-15", title: "Essay: Leadership Styles" },
+  { course: "Marketing Principles", due: "2026-03-20", title: "Presentation: Product Launch" },
+  // Add more assignments
+];
+
+function HUBApp() {
+  const [selectedTab, setSelectedTab] = useState("Courses");
+
+  return (
+    <div style={{ fontFamily: "Arial, sans-serif", maxWidth: 600, margin: "auto", padding: 24 }}>
+      <h1>Eduvos Student HUB</h1>
+      <nav style={{ display: "flex", marginBottom: 24 }}>
+        {["Courses", "Timetable", "Assignments", "Quick Links"].map(tab => (
+          <button
+            key={tab}
+            style={{
+              flex: 1,
+              padding: 12,
+              background: selectedTab === tab ? "#0078d4" : "#f0f0f0",
+              color: selectedTab === tab ? "#fff" : "#333",
+              border: "none",
+              cursor: "pointer",
+              fontWeight: "bold",
+            }}
+            onClick={() => setSelectedTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </nav>
+      <section>
+        {selectedTab === "Courses" && (
+          <ul>
+            {courses.map(course => (
+              <li key={course}>{course}</li>
+            ))}
+          </ul>
+        )}
+        {selectedTab === "Timetable" && (
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Class</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {timetable.map(({ day, class: cls, time }) => (
+                <tr key={day + cls}>
+                  <td>{day}</td>
+                  <td>{cls}</td>
+                  <td>{time}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        {selectedTab === "Assignments" && (
+          <ul>
+            {assignments.map(({ course, due, title }) => (
+              <li key={course + due}>
+                <strong>{course}</strong>: {title} - <em>Due {due}</em>
+              </li>
+            ))}
+          </ul>
+        )}
+        {selectedTab === "Quick Links" && (
+          <ul>
+            {quickLinks.map(({ name, url }) => (
+              <li key={name}>
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    </div>
+  );
+}
+
+export default HUBApp;
